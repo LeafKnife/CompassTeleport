@@ -76,7 +76,7 @@ void sendConfirmForm(Player& player, std::string itemType, Vec3 const& pos, Dime
             if (cancel.has_value()) return player.sendMessage("message.form.canceled.reason"_tr());
             if (result.has_value() && (bool)result.value()) {
                 auto slot = player.getSelectedItemSlot();
-                player.getInventory().removeItem(slot, 1);
+                player.mInventory->mInventory->removeItem(slot, 1);
                 player.refreshInventory();
                 player.teleport(pos, dimId);
             } else {
