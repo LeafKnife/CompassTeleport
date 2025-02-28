@@ -11,7 +11,7 @@ MyMod& MyMod::getInstance() {
 }
 
 bool MyMod::load() {
-    getSelf().getLogger().setLevel(ll::io::LogLevel::Debug);
+    // getSelf().getLogger().setLevel(ll::io::LogLevel::Debug);
     getSelf().getLogger().debug("Loading...");
     auto res = ll::i18n::getInstance().load(getSelf().getLangDir());
     // Code for loading the mod goes here.
