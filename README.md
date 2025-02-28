@@ -1,10 +1,10 @@
-# LK-Stats
+# CompassTeleport
 
 ![GitHub Tag](https://img.shields.io/github/v/tag/LeafKnife/CompassTeleport?include_prereleases&style=for-the-badge)
 
 <!-- ![GitHub License](https://img.shields.io/github/license/lwenk/Stats?style=for-the-badge) -->
 
-Minecraft 基岩版服务器(BDS) 指南针传送插件
+Minecraft 基岩版服务器(BDS) 指南针🧭传送插件
 
 ## 安装
 
@@ -22,7 +22,11 @@ lip install github.com/LeafKnife/CompassTeleport
 
 ## 使用
 
-启动服务器即可
+使用(右键)指定物品，根据表单提示，点击确认会消耗一个物品并进行传送。
+
+- 指南针：传送到玩家重生点
+- 追溯指针：传送到玩家上次死亡点
+- 磁石指针：传送到磁石指针绑定到的磁石坐标(磁石被摧毁无法传送)
 
 ## 更新日志
 
@@ -30,7 +34,7 @@ lip install github.com/LeafKnife/CompassTeleport
 
 ## 贡献
 
-如果您有任何问题，请开启一个 [issue](https://github.com/lwenk/Stats/issues) 来讨论  
+如果您有任何问题，请开启一个 [issue](https://github.com/LeafKnife/CompassTeleport/issues) 来讨论  
 欢迎 PR
 
 ## 许可
