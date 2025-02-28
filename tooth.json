@@ -12,7 +12,7 @@
         ],
         "avatar_url":"https://github.com/LeafKnife/CompassTeleport/raw/main/logo.png"
     },
-    "asset_url": "https://github.com/LeafKnife/CompassTeleport/releases/download/v0.2.0/CompassTeleport-windows-x64.zip",
+    "asset_url": "https://github.com/LeafKnife/CompassTeleport/releases/download/v$(version)/CompassTeleport-windows-x64.zip",
     "prerequisites": {
         "github.com/LiteLDev/LeviLamina": "1.1.x"
     },
