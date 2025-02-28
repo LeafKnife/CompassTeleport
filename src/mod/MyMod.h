@@ -1,8 +1,10 @@
 #pragma once
 
-#include "ll/api/mod/NativeMod.h"
+#include <ll/api/i18n/I18n.h>
+#include <ll/api/mod/NativeMod.h>
+#include <mc/deps/core/math/Vec3.h>
 
-namespace my_mod {
+namespace lk {
 
 class MyMod {
 
@@ -30,4 +32,14 @@ private:
     ll::mod::NativeMod& mSelf;
 };
 
-} // namespace my_mod
+namespace compass_teleport {
+struct Record {
+    int  dimid;
+    Vec3 pos;
+    int  status;
+};
+void hookBroadcastUpdateToClients();
+void listenEvents();
+void removeEvents();
+} // namespace compass_teleport
+} // namespace lk

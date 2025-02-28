@@ -1,8 +1,9 @@
 #include "mod/MyMod.h"
 
-#include "ll/api/mod/RegisterHelper.h"
+#include <ll/api/io/LogLevel.h>
+#include <ll/api/mod/RegisterHelper.h>
 
-namespace my_mod {
+namespace lk {
 
 MyMod& MyMod::getInstance() {
     static MyMod instance;
@@ -10,23 +11,28 @@ MyMod& MyMod::getInstance() {
 }
 
 bool MyMod::load() {
+    getSelf().getLogger().setLevel(ll::io::LogLevel::Debug);
     getSelf().getLogger().debug("Loading...");
+    auto res = ll::i18n::getInstance().load(getSelf().getLangDir());
     // Code for loading the mod goes here.
     return true;
 }
 
 bool MyMod::enable() {
     getSelf().getLogger().debug("Enabling...");
+    compass_teleport::hookBroadcastUpdateToClients();
+    compass_teleport::listenEvents();
     // Code for enabling the mod goes here.
     return true;
 }
 
 bool MyMod::disable() {
     getSelf().getLogger().debug("Disabling...");
+    compass_teleport::removeEvents();
     // Code for disabling the mod goes here.
     return true;
 }
 
-} // namespace my_mod
+} // namespace lk
 
-LL_REGISTER_MOD(my_mod::MyMod, my_mod::MyMod::getInstance());
+LL_REGISTER_MOD(lk::MyMod, lk::MyMod::getInstance());

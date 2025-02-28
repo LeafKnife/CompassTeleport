@@ -1,35 +1,39 @@
-# LeviLamina Mod Template
+# LK-Stats
 
-A LeviLamina mod template
+![GitHub Tag](https://img.shields.io/github/v/tag/LeafKnife/CompassTeleport?include_prereleases&style=for-the-badge)
 
-This mod is a template for developing LeviLamina mods.
+<!-- ![GitHub License](https://img.shields.io/github/license/lwenk/Stats?style=for-the-badge) -->
 
-## Install
+Minecraft 基岩版服务器(BDS) 指南针传送插件
 
-Generate a new repository from this template.
+## 安装
 
-## Usage
+### 使用 Lip
 
-Before using this mod template, make sure that you have installed XMake and a Minecraft Bedrock Server with LeviLamina.
+```sh
+lip install github.com/LeafKnife/CompassTeleport
+```
 
-1. Clone the new repository into a local folder.
+### 手动安装
 
-1. Change the mod name and the expected LeviLamina version in `xmake.lua`.
+1. 从[发布页面](https://github.com/LeafKnife/CompassTeleport/releases)下载最新版本。
+2. 解压`CompassTeleport-windows-x64.zip`文件。
+3. 将`CompassTeleport`文件夹复制到 BDS 安装目录下的 plugins 文件夹中。
 
-1. Add your code.
+## 使用
 
-1. Run `xmake repo -u` in the root of the repository.
+启动服务器即可
 
-1. Run `xmake` to build the mod.
+## 更新日志
 
-Now the build is complete at `bin/`.
+查看 [CHANGELOG](CHANGELOG.md) 文件获取更多信息。
 
-## Contributing
+## 贡献
 
-Ask questions by creating an issue.
+如果您有任何问题，请开启一个 [issue](https://github.com/lwenk/Stats/issues) 来讨论  
+欢迎 PR
 
-PRs accepted.
+## 许可
 
-## License
+GPL-3.0 © LeafKnife
 
-CC0-1.0 © LiteLDev

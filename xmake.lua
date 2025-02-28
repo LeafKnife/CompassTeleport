@@ -6,9 +6,9 @@ add_repositories("liteldev-repo https://github.com/LiteLDev/xmake-repo.git")
 -- add_requires("levilamina develop") to use develop version
 -- please note that you should add bdslibrary yourself if using dev version
 if is_config("target_type", "server") then
-    add_requires("levilamina", {configs = {target_type = "server"}})
+    add_requires("levilamina 1.0.1", {configs = {target_type = "server"}})
 else
-    add_requires("levilamina", {configs = {target_type = "client"}})
+    add_requires("levilamina 1.0.1", {configs = {target_type = "client"}})
 end
 
 add_requires("levibuildscript")
@@ -23,7 +23,7 @@ option("target_type")
     set_values("server", "client")
 option_end()
 
-target("my-mod") -- Change this to your mod name.
+target("CompassTeleport") -- Change this to your mod name.
     add_rules("@levibuildscript/linkrule")
     add_rules("@levibuildscript/modpacker")
     add_cxflags( "/EHa", "/utf-8", "/W4", "/w44265", "/w44289", "/w44296", "/w45263", "/w44738", "/w45204")
@@ -43,3 +43,9 @@ target("my-mod") -- Change this to your mod name.
     --     add_includedirs("src-client")
     --     add_files("src-client/**.cpp")
     -- end
+    after_build(function(target)
+        local langPath = path.join(os.projectdir(), "src/lang/")
+        local outputPath = path.join(os.projectdir(), "bin/" .. target:name())
+        os.mkdir(outputPath)
+        os.cp(langPath, outputPath)
+    end)

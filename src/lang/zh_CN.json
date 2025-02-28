@@ -1,0 +1,11 @@
+{
+    "gui.title.text": "消耗 {0} 并传送?",
+    "gui.content.text": "维度ID: {0}\n坐标: [{1},{2},{3}]",
+    "gui.button.confirm.text": " 确 认 ",
+    "gui.button.cancel.text": " 取 消 ",
+    "message.form.canceled.reason": "传送已取消",
+    "message.lodestone.not_found": "磁石已被摧毁或遗失",
+    "minecraft:recovery_compass": "§5追溯指针§r",
+    "minecraft:compass": "§4指南针§r",
+    "minecraft:lodestone_compass": "§3磁石指针§r"
+}
