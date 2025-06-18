@@ -1,5 +1,7 @@
 add_rules("mode.debug", "mode.release")
 
+set_xmakever("2.9.9")
+
 add_repositories("liteldev-repo https://github.com/LiteLDev/xmake-repo.git")
 
 -- add_requires("levilamina x.x.x") for a specific version
