@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - 适配LeviLamina 1.2.0-rc.1(BDS 1.21.70)
 
+### 修复
+
+- 修复玩家重生点获取异常
+
 ## [0.2.0] - 2025-02-28
 
 ### 新增

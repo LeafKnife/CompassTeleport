@@ -136,10 +136,9 @@ void listenEvents() {
                     sendConfirmForm(player, typeName, pos.value(), dim.value());
                 }
             } else if (typeName == VanillaItemNames::Compass().getString()) {
-                auto            respawnPoint = player.mPlayerRespawnPoint;
-                auto            dimType      = DimensionType(respawnPoint->mDimension);
-                BlockPos const& pos          = respawnPoint->mSpawnBlockPos;
-                sendConfirmForm(player, typeName, pos, dimType);
+                auto respawnPoint = player.getExpectedSpawnPosition();
+                auto dimType      = player.getExpectedSpawnDimensionId();
+                sendConfirmForm(player, typeName, respawnPoint, dimType);
             }
         });
 }
