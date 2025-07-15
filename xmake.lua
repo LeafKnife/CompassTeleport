@@ -1,19 +1,17 @@
 add_rules("mode.debug", "mode.release")
 
-set_xmakever("2.9.9")
-
 add_repositories("liteldev-repo https://github.com/LiteLDev/xmake-repo.git")
 
 -- add_requires("levilamina x.x.x") for a specific version
 -- add_requires("levilamina develop") to use develop version
 -- please note that you should add bdslibrary yourself if using dev version
 if is_config("target_type", "server") then
-    add_requires("levilamina 1.3.1", {configs = {target_type = "server"}})
+    add_requires("levilamina 1.4.0", {configs = {target_type = "server"}})
 else
-    add_requires("levilamina 1.3.1", {configs = {target_type = "client"}})
+    add_requires("levilamina 1.4.0", {configs = {target_type = "client"}})
 end
 
-add_requires("levibuildscript 0.4.0")
+add_requires("levibuildscript")
 
 if not has_config("vs_runtime") then
     set_runtimes("MD")
