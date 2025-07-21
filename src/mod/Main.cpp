@@ -1,5 +1,6 @@
 #include "mod/MyMod.h"
 
+#include <ll/api/coro/CoroTask.h>
 #include <ll/api/event/EventBus.h>
 #include <ll/api/event/ListenerBase.h>
 #include <ll/api/event/player/PlayerUseItemEvent.h>
@@ -7,6 +8,7 @@
 #include <ll/api/memory/Hook.h>
 #include <ll/api/memory/Memory.h>
 #include <ll/api/service/Bedrock.h>
+#include <ll/api/thread/ServerThreadExecutor.h>
 #include <mc/_HeaderOutputPredefine.h>
 #include <mc/deps/core/math/Vec3.h>
 #include <mc/deps/core/string/HashedString.h>
@@ -16,6 +18,8 @@
 #include <mc/nbt/IntTag.h>
 #include <mc/nbt/ListTag.h>
 #include <mc/nbt/StringTag.h>
+#include <mc/network/packet/TextPacket.h>
+#include <mc/network/packet/TextPacketType.h>
 #include <mc/world/actor/player/Inventory.h>
 #include <mc/world/actor/player/Player.h>
 #include <mc/world/actor/player/PlayerInventory.h>
@@ -32,7 +36,10 @@
 #include <mc/world/level/position_trackingdb/PositionTrackingDBClient.h>
 #include <mc/world/level/position_trackingdb/PositionTrackingDBServer.h>
 #include <mc/world/level/position_trackingdb/TrackingRecord.h>
+
 #include <optional>
+#include <string>
+#include <string_view>
 #include <unordered_map>
 
 using namespace ll::i18n_literals;
@@ -64,6 +71,37 @@ LL_TYPE_INSTANCE_HOOK(
 }
 void hookBroadcastUpdateToClients() { broadcastUpdateToClientsHook::hook(); }
 
+inline void sendTextPack(Player const& player, std::string string, TextPacketType type) {
+    TextPacket pkt = TextPacket();
+    pkt.mType      = type;
+    pkt.mMessage.assign(string);
+    player.sendNetworkPacket(pkt);
+}
+
+inline void delayTeleport(Player& player, Vec3 const& pos, DimensionType dimId) {
+    ll::coro::keepThis([&player, pos, dimId]() -> ll::coro::CoroTask<> {
+        bool  c       = true;
+        float timeout = 5000.0;
+        auto  oldPos  = player.getFeetBlockPos();
+        while (c) {
+            co_await std::chrono::microseconds(100);
+            timeout -= 100;
+            sendTextPack(player, "message.tip.delayTeleport"_tr(timeout / 1000), TextPacketType::Tip);
+            if (oldPos != player.getFeetBlockPos()) {
+                c = false;
+                sendTextPack(player, "message.tip.teleport.canceled"_tr(), TextPacketType::Tip);
+                co_return;
+            }
+            if (timeout <= 0) {
+                c = false;
+                player.teleport(pos, dimId);
+                sendTextPack(player, "message.tip.teleport.success"_tr(), TextPacketType::Tip);
+                co_return;
+            }
+        }
+    }).launch(ll::thread::ServerThreadExecutor::getDefault());
+}
+
 void sendConfirmForm(Player& player, std::string itemType, Vec3 const& pos, DimensionType const& dimId) {
     ll::form::ModalForm fm = ll::form::ModalForm();
     fm.setTitle("gui.title.text"_tr(ll::i18n::getInstance().get(itemType, {})));
@@ -78,7 +116,8 @@ void sendConfirmForm(Player& player, std::string itemType, Vec3 const& pos, Dime
                 auto slot = player.getSelectedItemSlot();
                 player.mInventory->mInventory->removeItem(slot, 1);
                 player.refreshInventory();
-                player.teleport(pos, dimId);
+                // player.teleport(pos, dimId);
+                delayTeleport(player, pos, dimId);
             } else {
                 return player.sendMessage("message.form.canceled.reason"_tr());
             }
