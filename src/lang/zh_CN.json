@@ -5,7 +5,7 @@
     "gui.button.cancel.text": " 取 消 ",
     "message.form.canceled.reason": "传送已取消",
     "message.lodestone.not_found": "磁石已被摧毁或遗失",
-    "message.tip.delay_teleport": "将于{0:.1f}秒后进行传送，请保持不动",
+    "message.tip.teleport.delay": "将于{0:.1f}秒后进行传送，请保持不动",
     "message.tip.teleport.success": "传送成功",
     "message.tip.teleport.canceled": "传送取消",
     "minecraft:recovery_compass": "§5追溯指针§r",

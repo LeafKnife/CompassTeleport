@@ -86,7 +86,7 @@ inline void delayTeleport(Player& player, Vec3 const& pos, DimensionType dimId) 
         while (c) {
             co_await std::chrono::microseconds(100);
             timeout -= 100;
-            sendTextPack(player, "message.tip.delayTeleport"_tr(timeout / 1000), TextPacketType::Tip);
+            sendTextPack(player, "message.tip.teleport.delay"_tr(timeout / 1000), TextPacketType::Tip);
             if (oldPos != player.getFeetBlockPos()) {
                 c = false;
                 sendTextPack(player, "message.tip.teleport.canceled"_tr(), TextPacketType::Tip);
@@ -150,6 +150,7 @@ void listenEvents() {
             auto&      player   = event.self();
             ItemStack& item     = event.item();
             auto       typeName = item.getTypeName();
+            if(!player.isSneaking()) return;
             if (typeName == VanillaItemNames::LodestoneCompass().getString()) {
                 auto nbt = item.save(*SaveContextFactory::createCloneSaveContext());
                 // logger.info(nbt->toSnbt());

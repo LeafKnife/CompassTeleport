@@ -12,7 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 新增
 
 - 适配LeviLamina 1.4.0 (BDS 1.21.93)
-- 延迟传送
+- 新增延迟传送（传送期间玩家坐标改变将会取消传送）
+
+### 更改
+
+- 将传送触发方式改为潜行右键
 
 ## [0.3.1] - 2025-06-19
 
