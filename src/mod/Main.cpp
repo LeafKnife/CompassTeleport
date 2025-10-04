@@ -23,6 +23,7 @@
 #include <mc/world/actor/player/Inventory.h>
 #include <mc/world/actor/player/Player.h>
 #include <mc/world/actor/player/PlayerInventory.h>
+#include <mc/world/actor/provider/SynchedActorDataAccess.h>
 #include <mc/world/item/Item.h>
 #include <mc/world/item/ItemStack.h>
 #include <mc/world/item/LodestoneCompassItem.h>
@@ -150,7 +151,7 @@ void listenEvents() {
             auto&      player   = event.self();
             ItemStack& item     = event.item();
             auto       typeName = item.getTypeName();
-            if(!player.isSneaking()) return;
+            if (SynchedActorDataAccess::getActorFlag(player.getEntityContext(), ActorFlags::Sneaking)) return;
             if (typeName == VanillaItemNames::LodestoneCompass().getString()) {
                 auto nbt = item.save(*SaveContextFactory::createCloneSaveContext());
                 // logger.info(nbt->toSnbt());
